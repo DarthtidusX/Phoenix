@@ -1,35 +1,21 @@
 //written by alex & steven
 
 #include <stdio.h>
+#include "breitenSuche.h"
 
 
-void breitensuche(int startPunkt);
-void pushKnoten(int aktKnoten);
-int getKnoten();
-void display(char a);
+
+
+/*****************************************************************************/
+/******************** Ab hier erfolgt die Implementierung ********************/
+/*****************************************************************************/
 
 const int MAX = 70;
 int n = 0;
 char _FA[] = "xxFxFxxx..x..xF.x.x.Fx.x...xx.x..xxx..x..xx...x.xxx..x.xF..x..Fx..x..x";
 int positionsKarte[70];
 
-int main(void)
-{
-	int startPunkt = 68; //Startpunkt B oder 64 == A
-
-	printf("Fahrplanmatrix\n\n");
-	display('c');
-
-	breitensuche(startPunkt);
-
-	printf("Kostenmatrix\n\n");
-	display('n');               //Alle erreichbaren '.' wurde konvertiert mit Hilfe der BFS in Zahlen(Kosten)
-                                //jedes 'F' ist immer die Zahl 70, jedes 'x' die Zahl 120 und alle nichterreichbaren
-                                //'.' sind die Zahl 46. D.h. jede Zahl die < als 'F' und != 46 ist neben ein 'F' ist ein
-                                //erlaubter Pfad
-	return 0;
-}
-
+/****************************** Nur fuer Konsolenanzeige ******************************/
 void display(char a)
 {
 	int j;
@@ -50,6 +36,7 @@ void display(char a)
 	}
 	printf("\n\n\n");
 }
+/****************************** Nur fuer Konsolenanzeige ******************************/
 
 void pushKnoten(int aktKnoten)
 {
