@@ -1,9 +1,8 @@
 /***************************/
-/* project: phoenix v1_0 */
+/* project: robi v1_0 */
 /* authors: alexandra, steven   */
 /* date:    02.10.2014     */
 /***************************/
-
 //Standard Inlcude Dateien
 #include <regc515c.h>
 
@@ -12,7 +11,7 @@
 
 //Eigene Inludes
 #include "actions.h"
-#include "mind.h"
+#include "breitenSuche.h"
 
 #define GREIFER_OFFEN 0
 #define GREIFER_GESCHLOSSEN 1
@@ -20,65 +19,47 @@
 
 void AksenMain(void)
 {
-byte current_startpoint = 0;
-//char check = 99; //Variable zum Pruefen ob Fahrgast vorhanden und Route absolvierbar ist
 
-// Startposition A oder B eventuell mit seitlichen Dipschaltern ueberpruefen => if...
+/****************************** Startpunkt abfragen ******************************/
+    int startPunkt = 68; //Startpunkt B oder 64 == A ueber Dip-Schalter regeln
+/****************************** Startpunkt abfragen ******************************/
 
-// Initialisierung Suchverfahren
+/****************************** Nur fuer Konsolenanzeige ******************************/
+	printf("Fahrplanmatrix\n\n");
+	display('c');
+/****************************** Nur fuer Konsolenanzeige ******************************/
+
+/****************************** Initialisierung Suchverfahren ******************************/
+	breitensuche(startPunkt);
+/****************************** Initialisierung Suchverfahren ******************************/
+
+/****************************** Nur fuer Konsolenanzeige ******************************/
+	printf("Kostenmatrix\n\n");
+	display('n');               //Alle erreichbaren '.' wurde konvertiert mit Hilfe der BFS in Zahlen(Kosten)
+                                //jedes 'F' ist immer die Zahl 70, jedes 'x' die Zahl 120 und alle nichterreichbaren
+                                //'.' sind die Zahl 46. D.h. jede Zahl die < als 'F' und != 46 ist neben ein 'F' ist ein
+                                //erlaubter Pfad
+/****************************** Nur fuer Konsolenanzeige ******************************/
+
+
 while(1)
 {
-  lcd_setxy(0,0);
-  lcd_ubyte(analog(8));
-    //breitensuche(current_startpoint);
 
-// Fahrplan laden
-
-// Fahrplan auslesen -> iterativer Prozess abh‰ngig von der Anzahl der Fahrgaeste
-    //check = read_plan(current_startpoint);
-
-// transportierte Fahrgaeste auf Karte mit x etc. markieren aber nicht mit 'F'
-
+/****************************** Fahrplan pruefen ******************************/
+//Fahrgast vorhanden?
 // Codeanzeige auf Display, ob Fahrgast vorhanden, Route passierbar ist -> lcd_puts("0, -1 oder -2")
-
-...
+// check = read_plan(current_startpoint);
+// transportierte Fahrgaeste auf Karte mit x etc. markieren aber nicht mit 'F'
+/****************************** Fahrplan pruefen ******************************/
 
 //Start wenn Licht aus ist -> drive();
-}
 
-/*
-void breitensuche(byte start)
-{
-    byte aktPosition = start;
-    byte kosten = 0;
-    byte kostenKarte[] = 99;
+/****************************** Fahrplan abarbeiten ******************************/
+// Fahrplan auslesen -> iterativer Prozess abh√§ngig von der Anzahl der Fahrgaeste
+/****************************** Fahrplan abarbeiten ******************************/
 
-    kostenKarte[aktPosition] = 0;
-    putANummer(aktPosition);
 
-    while(aktPosition != 0)
-    {
-        kosten++;
-        if(_fa[aktPosition+1] == '.')
-        {
-            putANummer(aktPosition+1);
-            kostenKarte[aktPosition+1] = kosten;
-        }
-        if(_fa[aktPosition+7] == '.')
-        {
-            putANummer(aktPosition+7);
-            kostenKarte[aktPosition+7] = kosten;
-        }
-        if(_fa[aktPosition-1] == '.')
-        {
-            putANummer(aktPosition-1);
-            kostenKarte[aktPosition-1] = kosten;
-        }
-        if(_fa[aktPosition-7] == '.')
-        {
-            putANummer(aktPosition-7);
-            kostenKarte[aktPosition-7] = kosten;
-        }
-    }  */
-}
+
+
+
 }
